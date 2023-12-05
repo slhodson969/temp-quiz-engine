@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "5F2675C0-40E8-425E-8BAA-757FBDEE4167",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:QuizEngine.xcodeproj",
+        "identifier" : "D253D26E2A644B8F0015E5FD",
+        "name" : "QuizEngineTests"
+      }
+    }
+  ],
+  "version" : 1
+}

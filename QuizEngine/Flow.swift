@@ -8,7 +8,7 @@ final class Flow<Delegate: QuizDelegate> {
     typealias Question = Delegate.Question
     typealias Answer = Delegate.Answer
     
-    private let delegate: Delegate
+    private weak var delegate: Delegate?
     private let questions: [Question]
     private var answers: [(Question, Answer)] = []
     private var currentQuestionIndex: Int = .zero
@@ -39,10 +39,10 @@ final class Flow<Delegate: QuizDelegate> {
             let goToPrev = index == questions.startIndex ? nil : goToPreviousQuestion
             let goToNext = index == (questions.endIndex - 1) ? nil : goToNextQuestion
             
-            delegate.answer(for: question, goToPreviousQuestion: goToPrev, goToNextQuestion: goToNext, completion: answer(for: question, at: index))
+            delegate?.answer(for: question, goToPreviousQuestion: goToPrev, goToNextQuestion: goToNext, completion: answer(for: question, at: index))
             currentQuestionIndex = index
         } else {
-            delegate.didCompleteQuiz(withAnswers: answers)
+            delegate?.didCompleteQuiz(withAnswers: answers)
         }
     }
     

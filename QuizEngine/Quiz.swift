@@ -15,7 +15,7 @@ public final class Quiz {
         questions: [Delegate.Question],
         delegate: Delegate
     ) -> Quiz where Delegate.Answer: Equatable {
-        let flow = Flow(questions: questions, delegate: WeakRefVirtualProxy(delegate))
+        let flow = Flow(questions: questions, delegate: delegate)
         flow.start()
         return Quiz(flow: flow)
     }

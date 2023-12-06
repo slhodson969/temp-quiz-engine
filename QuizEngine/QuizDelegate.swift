@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol QuizDelegate: AnyObject {
+public protocol QuizDelegate {
     associatedtype Question
     associatedtype Answer
     

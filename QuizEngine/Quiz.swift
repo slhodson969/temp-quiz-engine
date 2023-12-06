@@ -15,8 +15,26 @@ public final class Quiz {
         questions: [Delegate.Question],
         delegate: Delegate
     ) -> Quiz where Delegate.Answer: Equatable {
-        let flow = Flow(questions: questions, delegate: delegate)
+        let flow = Flow(questions: questions, delegate: WeakRefVirtualProxy(delegate))
         flow.start()
         return Quiz(flow: flow)
+    }
+}
+
+final class WeakRefVirtualProxy<T: AnyObject> {
+    private weak var object: T?
+    
+    init(_ object: T) {
+        self.object = object
+    }
+}
+
+extension WeakRefVirtualProxy: QuizDelegate where T: QuizDelegate {
+    func answer(for question: T.Question, goToPreviousQuestion: (() -> Void)?, goToNextQuestion: (() -> Void)?, completion: @escaping (T.Answer) -> Void) {
+        object?.answer(for: question, goToPreviousQuestion: goToPreviousQuestion, goToNextQuestion: goToNextQuestion, completion: completion)
+    }
+    
+    func didCompleteQuiz(withAnswers: [(question: T.Question, answer: T.Answer)]) {
+        object?.didCompleteQuiz(withAnswers: withAnswers)
     }
 }
